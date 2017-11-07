@@ -4,6 +4,7 @@ var bodyParser = require('body-parser');
 var watson = require('watson-developer-cloud');
 var fs = require('fs');
 var auth = require('./Auth');
+var conversation = watson.conversation(auth.watson.conversation);
 
 var PORT = process.env.PORT || 3000;
 
@@ -19,6 +20,11 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
+
+//route set up
+
+app.use('/', index);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
