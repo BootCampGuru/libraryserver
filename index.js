@@ -1,10 +1,12 @@
 var express = require('express');
 var path = require('path');
 var bodyParser = require('body-parser');
-var watson = require('watson-developer-cloud');
 var fs = require('fs');
+var watsonJS = require('./routes/watson');
 var auth = require('./Auth');
-var conversation = watson.conversation(auth.watson.conversation);
+
+
+
 
 var PORT = process.env.PORT || 3000;
 
@@ -21,10 +23,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-//route set up
 
-app.use('/', index);
-
+app.use('/', watsonJS);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
